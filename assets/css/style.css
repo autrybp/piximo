@@ -4,7 +4,6 @@ body {
   background-image: url('../img/pixoptimbg.svg');
   background-size: cover;
   background-position: center;
-  /* Add blur effect to background */
   position: relative;
   overflow: hidden;
 }
@@ -15,10 +14,12 @@ body::before {
   inset: 0;
   z-index: -1;
   background-image: inherit;
-  background-size: inherit;
-  background-position: inherit;
+  background-size: cover;
+  background-position: center;
   filter: blur(3px);
+  transform: scale(1.1); /* 🔥 Fix the edge artifacts */
 }
+
 
 /* Fade-in animation */
 @keyframes fadeIn {
