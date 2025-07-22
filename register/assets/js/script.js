@@ -14,7 +14,3 @@ window.addEventListener('load', () => {
     //    The CSS 'transition' property on the body will make this a smooth fade-in.
     body.style.opacity = '1';
 });
-
-function goBack() {
-  window.history.back();
-}
