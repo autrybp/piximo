@@ -135,3 +135,77 @@ body {
     opacity: 0;
     transition: opacity 0.5s ease-in-out; /* Smooth fade in */
 }
+
+/* Password Visibility Toggle */
+.password-toggle {
+    position: absolute;
+    right: 10px; /* Adjust as needed, depends on input padding */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #888; /* Icon color */
+    user-select: none; /* Prevent text selection */
+    z-index: 10; /* Ensure it's above the input */
+}
+
+/* Eye Icon Styling (using a simple emoji for broad compatibility) */
+.eye-icon::before {
+    content: "👁️"; /* Default eye icon (visible) */
+}
+.password-toggle.visible .eye-icon::before {
+    content: "🙈"; /* Alternative for hidden state (crossed-out eye) */
+}
+/* If emoji isn't desired, you could use a background image: */
+/*
+.eye-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('path/to/eye-open.svg'); // Replace with your eye-open SVG/PNG
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.password-toggle.visible .eye-icon {
+    background-image: url('path/to/eye-closed.svg'); // Replace with your eye-closed SVG/PNG
+}
+*/
+
+
+/* Password Strength Bar */
+.strength-bar-container {
+    background-color: #e0e0e0; /* Light background for the bar container */
+    border-radius: 5px;
+    height: 8px; /* Height of the bar */
+    overflow: hidden; /* Ensures the inner bar stays within rounded corners */
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%; /* Starts at 0 width */
+    border-radius: 5px; /* Matches container radius */
+    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Smooth transitions */
+}
+
+/* Strength Bar Colors (CMYK-ish feel) */
+.strength-bar.weak {
+    background-color: rgb(255, 0, 255); /* Magenta - Weak */
+}
+.strength-bar.medium {
+    background-color: rgb(255, 255, 0); /* Yellow - Medium */
+}
+.strength-bar.strong {
+    background-color: rgb(0, 255, 255); /* Cyan - Strong */
+}
+.strength-bar.very-strong {
+    background-color: rgb(0, 128, 0); /* Darker Green/Cyan blend - Very Strong */
+}
+
+/*
+For more specific CMYK approximations:
+.strength-bar.weak { background-color: #FF00FF; } // Magenta
+.strength-bar.medium { background-color: #FFFF00; } // Yellow
+.strength-bar.strong { background-color: #00FFFF; } // Cyan
+.strength-bar.very-strong { background-color: #008080; } // Tealish (Cyan + Black)
+*/
