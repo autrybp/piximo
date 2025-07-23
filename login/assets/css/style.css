@@ -1,0 +1,138 @@
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-image: url('../img/pixoptimbg.svg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  transform: scale(1.1); /* 🔥 Fix the edge artifacts */
+}
+
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow animation */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.fade-in-delay-1 {
+  animation-delay: 0.3s;
+}
+
+.fade-in-delay-2 {
+  animation-delay: 0.6s;
+}
+
+.fade-in-delay-3 {
+  animation-delay: 0.9s;
+}
+
+.fade-in-glow {
+  animation: glow 1s ease forwards;
+}
+
+/* Hover glow effects */
+.glow-white:hover {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+.glow-dark:hover {
+  box-shadow: 0 0 12px rgba(80, 80, 80, 0.8);
+}
+
+/* Loading Screen Styling */
+#loading-screen {
+    position: fixed; /* Stays in place even when scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000; /* Background of loading screen: Black (K) */
+    z-index: 9999; /* Ensure it's on top of everything */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.7s ease-out; /* Smooth fade out for the loading screen */
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden; /* Hides the element from screen readers and interaction */
+    pointer-events: none; /* Prevents clicks on the hidden div */
+}
+
+.loading-text {
+    font-size: 2em;
+    margin-top: 20px;
+    animation: text-color-change 4s infinite linear; /* Apply the text color animation */
+}
+
+/* Loader Spinner - Using CMYK-like colors */
+.loader {
+    border: 8px solid rgba(255, 255, 255, 0.3); /* Light background border for the spinner */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite; /* Apply the spinning animation */
+
+    /* CMYK Converted Colors for the spinner parts: */
+    border-top-color: #00FFFF;   /* Cyan: C=100%, M=0%, Y=0%, K=0% */
+    border-right-color: #FF00FF; /* Magenta: C=0%, M=100%, Y=0%, K=0% */
+    border-bottom-color: #FFFF00;/* Yellow: C=0%, M=0%, Y=100%, K=0% */
+    border-left-color: #000000;  /* Black: K=100% */
+}
+
+/* Keyframes for the spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Keyframes for the loading text color animation */
+@keyframes text-color-change {
+    0% { color: #00FFFF; }   /* Cyan */
+    25% { color: #FF00FF; }  /* Magenta */
+    50% { color: #FFFF00; }  /* Yellow */
+    75% { color: #000000; }  /* Black */
+    100% { color: #00FFFF; } /* Cyan (repeats the cycle) */
+}
+
+/* Initial body state: Hidden to prevent flash of unstyled content */
+body {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Smooth fade in */
+}
+
