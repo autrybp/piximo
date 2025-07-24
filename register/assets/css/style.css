@@ -1,75 +1,109 @@
+/* Ensure box-sizing is consistent across all elements */
+html {
+    /* Revert to height: 100% for the sticky footer setup if that's what we're going for */
+    /* If you truly want to scroll to the footer on short pages, keep this removed */
+    /* height: 100%; */
+    box-sizing: border-box; /* Crucial for consistent sizing */
+}
+
+*, *::before, *::after {
+    box-sizing: inherit; /* Inherit box-sizing globally for predictability */
+}
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-image: url('../img/pixoptimbg.svg');
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    /* BACKGROUND MANAGEMENT: Keep background on body for now */
+    background-image: url('../img/pixoptimbg.svg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Keep background fixed to prevent spill and allow blur to work */
+    /* END BACKGROUND MANAGEMENT */
+
+    position: relative; /* Needed for ::before pseudo-element */
+    overflow-x: hidden; /* <--- ADD THIS: ONLY HIDE HORIZONTAL SCROLL */
+    /* REMOVED: overflow: hidden; (the full one) */
+    min-height: 100vh; /* Re-enable for sticky footer behavior */
+    display: flex; /* Re-enable for sticky footer behavior */
+    flex-direction: column; /* Re-enable for sticky footer behavior */
+    margin: 0; /* Remove default browser margins */
+    padding: 0; /* Remove default browser paddings */
+
+    /* Initial body state: Hidden to prevent flash of unstyled content */
+    opacity: 0; /* Keep this for your loading screen transition */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade in */
 }
 
+/* Pseudo-element for blurred background */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: inherit;
-  background-size: cover;
-  background-position: center;
-  filter: blur(3px);
-  transform: scale(1.1); /* 🔥 Fix the edge artifacts */
+    content: "";
+    position: fixed; /* <--- REVERTED: This was causing the horizontal scroll */
+    inset: 0; /* Shorthand for top, right, bottom, left: 0 */
+    z-index: -1; /* Puts it behind everything else */
+    background-image: inherit; /* Inherits background from body */
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+    transform: scale(1.1); /* Fix the edge artifacts */
 }
 
+main {
+    flex-grow: 1; /* Allows the main content area to expand and push the footer down */
+    display: flex; /* Make main a flex container for centering your form */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically within main's available space */
+    padding-top: 2rem; /* Add some padding if needed at the top of the main content */
+    padding-bottom: 2rem; /* Add some padding if needed at the bottom of the main content */
+}
 
 /* Fade-in animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Glow animation */
 @keyframes glow {
-  0% {
-    box-shadow: 0 0 0px rgba(255, 255, 255, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-  }
+    0% {
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    }
 }
 
 .fade-in {
-  animation: fadeIn 1s ease forwards;
+    animation: fadeIn 1s ease forwards;
 }
 
 .fade-in-delay-1 {
-  animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
 
 .fade-in-delay-2 {
-  animation-delay: 0.6s;
+    animation-delay: 0.6s;
 }
 
 .fade-in-delay-3 {
-  animation-delay: 0.9s;
+    animation-delay: 0.9s;
 }
 
 .fade-in-glow {
-  animation: glow 1s ease forwards;
+    animation: glow 1s ease forwards;
 }
 
 /* Hover glow effects */
 .glow-white:hover {
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
 }
 
 .glow-dark:hover {
-  box-shadow: 0 0 12px rgba(80, 80, 80, 0.8);
+    box-shadow: 0 0 12px rgba(80, 80, 80, 0.8);
 }
 
 /* Loading Screen Styling */
@@ -129,10 +163,3 @@ body::before {
     75% { color: #000000; }  /* Black */
     100% { color: #00FFFF; } /* Cyan (repeats the cycle) */
 }
-
-/* Initial body state: Hidden to prevent flash of unstyled content */
-body {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out; /* Smooth fade in */
-}
-
